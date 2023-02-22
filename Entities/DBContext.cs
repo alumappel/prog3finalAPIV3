@@ -17,7 +17,7 @@ namespace prog3finalAPIV3.Entities
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Practices> Practices { get; set; }
         public virtual DbSet<Location_In_Frame> Location_In_Frame { get; set; }
-        public virtual DbSet<Pitch> Pitche { get; set; }
+        public virtual DbSet<Pitch> Pitch { get; set; }
         public virtual DbSet<Volume> Volume { get; set; }
 
 

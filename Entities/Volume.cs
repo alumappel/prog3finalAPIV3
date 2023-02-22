@@ -3,12 +3,12 @@
     public class Volume
     {
         public int Id { get; set; }
-        public double measurment_time { get; set; }
+        public double measurement_time { get; set; }
         public double volume_avg { get; set; }
-        public double good_preformance_time_percent { get; set; }
-        public double too_loud_preformance_time_percent { get; set; }
-        public double too_quiet_preformance_time_percent { get; set; }
-        public int practice_Id { get; set; }
+        public double good_performance_time_percent { get; set; }
+        public double too_loud_performance_time_percent { get; set; }
+        public double too_quiet_performance_time_percent { get; set; }
+        public int practices_Id { get; set; }
 
     }
 }

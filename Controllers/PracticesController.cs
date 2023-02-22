@@ -52,7 +52,7 @@ namespace prog3finalAPIV3.Controllers
             {
                 foreach(PracticeDTO p in List) {
                     p.locationInFrame = await DBContext.Location_In_Frame.Select(
-                        l => new DTO.LocationInFrameDTO
+                        l => new LocationInFrameDTO
                         {
                             Id = l.Id,
                             measurmentTime = l.measurement_time,
@@ -64,6 +64,34 @@ namespace prog3finalAPIV3.Controllers
 
                         }
                     ).FirstOrDefaultAsync(l => l.practiceId == p.Id);
+
+
+                    p.volume = await DBContext.Volume.Select(
+                       v => new VolumeDTO
+                       {
+                           Id = v.Id,
+                           measurmentTime = v.measurement_time,
+                           volumeAVG= v.volume_avg,
+                           goodPTP = v.good_performance_time_percent,
+                           tooLoudPTP=v.too_loud_performance_time_percent,
+                           tooQuietPTP=v.too_quiet_performance_time_percent,
+                           practiceId = v.practices_Id
+
+                       }
+                   ).FirstOrDefaultAsync(v => v.practiceId == p.Id);
+
+
+                    p.pitch = await DBContext.Pitch.Select(
+                  pi => new PitchDTO
+                  {
+                      Id = pi.Id,
+                      measurmentTime = pi.measurement_time,                      
+                      goodPTP = pi.good_performance_time_percent,
+                      practiceId = pi.practices_Id
+
+                  }
+              ).FirstOrDefaultAsync(pi => pi.practiceId == p.Id);
+
                 }
                 return List;
             }
