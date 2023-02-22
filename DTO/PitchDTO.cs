@@ -6,5 +6,6 @@
         public int Id { get; set; }
         public double measurmentTime { get; set; }
         public double goodPTP { get; set; }
+        public int practiceId { get; set; }
     }
 }

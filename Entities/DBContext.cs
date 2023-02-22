@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using prog3finalAPIV3.Entities;
 
 namespace prog3finalAPIV3.Entities
 {
@@ -15,9 +16,9 @@ namespace prog3finalAPIV3.Entities
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Practices> Practices { get; set; }
-        public virtual DbSet<LocationInFrameDTO> LocationInFrames { get; set; }
-        public virtual DbSet<PitchDTO> Pitches { get; set; }
-        public virtual DbSet<VolumeDTO> Volumes { get; set; }
+        public virtual DbSet<Location_In_Frame> Location_In_Frame { get; set; }
+        public virtual DbSet<Pitch> Pitche { get; set; }
+        public virtual DbSet<Volume> Volume { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

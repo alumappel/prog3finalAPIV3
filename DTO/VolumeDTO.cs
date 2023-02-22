@@ -9,5 +9,6 @@
         public double goodPTP { get; set; }
         public double tooLoudPTP { get; set; }
         public double tooQuietPTP { get; set; }
+        public int practiceId { get; set; }
     }
 }

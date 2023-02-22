@@ -1,4 +1,6 @@
-﻿namespace prog3finalAPIV3.DTO
+﻿using prog3finalAPIV3.Entities;
+
+namespace prog3finalAPIV3.DTO
 {
     public class LocationInFrameDTO
     {
@@ -9,5 +11,7 @@
         public double outOfFramePTP { get; set; }
         public double tooClosePTP { get; set; }
         public double tooFarPTP { get; set; }
+        public int practiceId { get; set; }
+
     }
 }
