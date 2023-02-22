@@ -17,7 +17,7 @@ namespace prog3finalAPIV3.Controllers
             this.DBContext = DBContext;
         }
 
-
+        //שליפה של כל האימונים וכל הנתונים
         [HttpGet("GetPractices")]
         public async Task<ActionResult<List<PracticeDTO>>> Get()
         {
@@ -28,19 +28,6 @@ namespace prog3finalAPIV3.Controllers
                     practiceName = p.practice_name,
                     date = p.date,
                     overAllLength = p.overall_length,
-                    //locationInFrame = DBContext.LocationInFrame.Select(
-                    //    l => new LocationInFrameDTO
-                    //    {
-                    //        Id = l.Id,
-                    //        measurmentTime = l.measurment_time,
-                    //        goodPTP = l.good_preformance_time_percent,
-                    //        outOfFramePTP = l.out_of_frame_preformance_time_percent,
-                    //        tooClosePTP = l.too_close_preformance_time_percent,
-                    //        tooFarPTP = l.too_far_preformance_time_percent,
-                    //        practiceId = l.practice_Id
-
-                    //    }
-                    //).FirstOrDefaultAsync(l => l.practice_Id == p.Id);
                 }
             ).ToListAsync();
 
@@ -50,7 +37,8 @@ namespace prog3finalAPIV3.Controllers
             }
             else
             {
-                foreach(PracticeDTO p in List) {
+                foreach (PracticeDTO p in List)
+                {
                     p.locationInFrame = await DBContext.Location_In_Frame.Select(
                         l => new LocationInFrameDTO
                         {
@@ -71,10 +59,10 @@ namespace prog3finalAPIV3.Controllers
                        {
                            Id = v.Id,
                            measurmentTime = v.measurement_time,
-                           volumeAVG= v.volume_avg,
+                           volumeAVG = v.volume_avg,
                            goodPTP = v.good_performance_time_percent,
-                           tooLoudPTP=v.too_loud_performance_time_percent,
-                           tooQuietPTP=v.too_quiet_performance_time_percent,
+                           tooLoudPTP = v.too_loud_performance_time_percent,
+                           tooQuietPTP = v.too_quiet_performance_time_percent,
                            practiceId = v.practices_Id
 
                        }
@@ -85,7 +73,7 @@ namespace prog3finalAPIV3.Controllers
                   pi => new PitchDTO
                   {
                       Id = pi.Id,
-                      measurmentTime = pi.measurement_time,                      
+                      measurmentTime = pi.measurement_time,
                       goodPTP = pi.good_performance_time_percent,
                       practiceId = pi.practices_Id
 
@@ -95,6 +83,21 @@ namespace prog3finalAPIV3.Controllers
                 }
                 return List;
             }
+        }
+
+
+        //עדכון שם של אימון
+        [HttpPut("UpdatePracticeName/{id}/{newName}")]
+        public async Task<HttpStatusCode> UpdatePracticeName(int id, string newName)
+        {
+            var practiceToChange = await DBContext.Practices.FirstOrDefaultAsync(p => p.Id == id);
+            if (practiceToChange != null)
+            {
+                practiceToChange.practice_name = newName;
+            }
+
+            await DBContext.SaveChangesAsync();
+            return HttpStatusCode.OK;
         }
 
 
