@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using prog3finalAPIV3.DTO;
 using prog3finalAPIV3.Entities;
+using System.Linq;
 using System.Net;
 
 namespace prog3finalAPIV3.Controllers
@@ -95,12 +96,50 @@ namespace prog3finalAPIV3.Controllers
             {
                 practiceToChange.practice_name = newName;
             }
+            //להוסיף לא נמצא
 
             await DBContext.SaveChangesAsync();
             return HttpStatusCode.OK;
         }
 
+        //מחיקת אימון
+        [HttpDelete("DeletePractice/{id}")]
+        public async Task<HttpStatusCode> DeletePractice(int id)
+        {
+            //שליפת האימון
+            Practices practiceToDelete= await DBContext.Practices.Select().FirstOrDefaultAsync(practiceToDelete.Id == id);
+            if (practiceToDelete == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ////מחיקת ווליום
+                //Volume volumeToDelete = await DBContext.Volume.Select().FirstOrDefaultAsync(v => v.practices_Id == id);
+                //if (volumeToDelete != null)
+                //{
+                //    DBContext.Volume.Remove(volumeToDelete);
+                //}
+                ////מחיקת פריים
+                //Location_In_Frame locationToDelete = await DBContext.Location_In_Frame.Select().FirstOrDefaultAsync(l => l.practices_Id == id);
+                //if (locationToDelete != null)
+                //{
+                //    DBContext.Location_In_Frame.Remove(locationToDelete);
+                //}
+                ////מחיקת פיץ'
+                //Pitch pitchToDelete = await DBContext.Pitch.Select().FirstOrDefaultAsync(pv => p.practices_Id == id);
+                //if (volumeToDelete != null)
+                //{
+                //    DBContext.Pitch.Remove(pitchToDelete);
+                //}
 
+                //מחיקת האימון
+                DBContext.Practices.Remove(practiceToDelete);
+                await DBContext.SaveChangesAsync();
+                return HttpStatusCode.OK;
+            }
+
+        }
 
 
 
